@@ -3,8 +3,30 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom'
+import { useState } from 'react';
+import { societies } from './societies';
+import Cards from './components/Cards';
 
 function App() {
+  const [societiesList, setsocietiesList] = useState(societies)
+
+  const list = Object.keys(societiesList).map(iteration => {
+    return (
+      <Cards 
+        key={iteration}
+        mykey={iteration}
+        nom={societiesList[iteration].title}
+        logo={societiesList[iteration].logo}
+        tel={societiesList[iteration].tel}
+        adresse={societiesList[iteration].adresse}
+        cp={societiesList[iteration].cp}
+        mail={societiesList[iteration].email}
+        ville={societiesList[iteration].ville}
+        url={societiesList[iteration].url}
+      />
+    )
+  })
+
   return (
       <>
         <div className="slide" id="home">
@@ -35,17 +57,7 @@ function App() {
           <div className="wrapper">
             <h2>Nos sociétés</h2>
             <div id="mysocietys">
-              <div className="cards">
-                <img src='' alt="image" />
-                <div className="infos">
-                  <h3>Nom</h3>
-                  <p>Adresse, CP Ville</p>
-                  <p>Téléphone: 02/25.35.45</p>
-                  <p>Mail: contact@epse.be</p>
-                  <p>Site Web: <a href='http://www.epse.be' target="_blank" rel="noopener noreferrer">EPSE</a></p>
-                  <Link to='/' className='button'>En savoir plus</Link>
-                </div>
-              </div>
+             {list}
             </div>
           </div>
         </div>
